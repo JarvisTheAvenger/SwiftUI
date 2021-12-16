@@ -16,10 +16,14 @@ struct ContentView: View {
     
     private func getUnitType(_ unit: String) -> UnitLength {
         switch unit {
-        case "meters": return .meters
-        case "kilometers": return .kilometers
-        case "feet": return .feet
-        default: return .miles
+        case "meters":
+            return .meters
+        case "kilometers":
+            return .kilometers
+        case "feet":
+            return .feet
+        default:
+            return .miles
         }
     }
     
@@ -29,7 +33,6 @@ struct ContentView: View {
         }
             
         let input = Measurement(value: value, unit: getUnitType(inputUnit))
-        
         let output = input.converted(to: getUnitType(outputUnit))
     
         return output.value
@@ -75,9 +78,6 @@ struct ContentView: View {
             }
             .navigationTitle("Distance Converter")
         }
-        
-        
-        
     }
 }
 
