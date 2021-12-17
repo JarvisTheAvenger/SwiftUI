@@ -10,7 +10,13 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         // Linear gradient goes in one direction
-        LinearGradient(colors: [.red, .blue], startPoint: .top, endPoint: .bottom).ignoresSafeArea()
+//        LinearGradient(colors: [.red, .blue], startPoint: .top, endPoint: .bottom).ignoresSafeArea()
+        
+        LinearGradient(gradient: Gradient(stops: [
+            Gradient.Stop(color: .white, location: 0.45),
+            Gradient.Stop(color: .black, location: 0.55),
+        ]), startPoint: .top, endPoint: .bottom)
+                
     }
 }
 
