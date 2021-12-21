@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+struct FlagImage: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .clipShape(Capsule())
+            .shadow(radius: 5)
+    }
+}
+
 struct ContentView: View {
     @State var showingScore = false
     @State var scoreTitle = ""
@@ -53,8 +61,8 @@ struct ContentView: View {
                         } label: {
                             Image(countries[number])
                                 .renderingMode(.original)
-                                .clipShape(Capsule())
-                                .shadow(radius: 5)
+                                .modifier(FlagImage())
+                                
                         }
                     }
                 }
