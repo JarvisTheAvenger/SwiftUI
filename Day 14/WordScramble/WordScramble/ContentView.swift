@@ -18,7 +18,24 @@ struct ContentView: View {
             }
             .listStyle(.grouped)
             .navigationTitle("List")
+        }.onAppear {
+            test()
         }
+        
+    }
+    
+    func test() {
+        let word = "swift"
+ 
+        let range = NSRange(location: 0, length: word.utf16.count)
+        let checker = UITextChecker()
+        
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        
+        
+        let allGood = misspelledRange.location == NSNotFound
+        
+        print(allGood)
         
     }
 }
