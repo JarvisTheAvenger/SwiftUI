@@ -10,34 +10,16 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         
+        let places = ["Ooty", "Mahabaleshwar", "Shimla", "Manali", "Mysore"]
+        
         NavigationView {
-            List {
-                Section("Section 1") {
-                    Text("Static row 1")
-                    Text("Static row 2")
-                }
-                .textCase(nil)
-               
-                Section("Section 2") {
-                    ForEach(0..<5) {
-                        Text("Dynamic row - \($0)")
-                    }
-                }
-                .textCase(nil)
-
-                Section("Section 3") {
-                    Text("Static row 3")
-                    Text("Static row 4")
-                    Text("Static row 5")
-                }
-                .textCase(nil)
-
+            List(places, id: \.self) {
+                Text("\($0)")
             }
             .listStyle(.grouped)
             .navigationTitle("List")
         }
         
-
     }
 }
 
