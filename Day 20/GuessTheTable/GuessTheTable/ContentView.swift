@@ -7,19 +7,41 @@
 
 import SwiftUI
 
+struct CustomButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 150, height: 44)
+            .background(.orange)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding()
+            .font(.title3)
+        
+    }
+}
+
+extension View {
+    func buttonStyle() -> some View {
+        return modifier(CustomButtonModifier())
+    }
+}
+
 struct ContentView: View {
     @State var table = 2
-    @State var numberOfQuestions = 5
     @State var score = 0
     
     @State var isGameOn = false
     @State var randomNumber = 1
     @State var answer = 0
-    @FocusState var isKeyboardFocused : Bool
     
     @State var isAlertPresent = false
     @State var alertTitle = ""
     @State var alertMessage = ""
+    
+    @State var questionCounter = 1
+    @State var maxQuestions = 5
+    
+    @FocusState var isKeyboardFocused : Bool
     
     let questionSet = [5,10,15,20]
     
@@ -27,13 +49,11 @@ struct ContentView: View {
         return randomNumber * table
     }
     
-    @State var questionCounter = 0
     
     var body: some View {
         
         NavigationView {
             VStack(alignment: .leading) {
-                
                 Spacer()
                 
                 if !isGameOn {
@@ -51,7 +71,7 @@ struct ContentView: View {
                         .foregroundColor(.orange)
                     
                     
-                    Picker("", selection: $numberOfQuestions) {
+                    Picker("", selection: $maxQuestions) {
                         ForEach(questionSet, id: \.self) {
                             Text("\($0)")
                         }
@@ -63,12 +83,7 @@ struct ContentView: View {
                     Button("Start Game") {
                         startGame()
                     }
-                    .frame(width: 150, height: 44)
-                    .background(.orange)
-                    .foregroundColor(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .padding()
-                    .font(.title3)
+                    .buttonStyle()
                 }
                 
                 if isGameOn {
@@ -85,29 +100,20 @@ struct ContentView: View {
                             .keyboardType(.numberPad)
                             .font(.body)
                             .focused($isKeyboardFocused)
-                        
-                        Button("Next") {
-                            calculate()
-                        }
-                        .frame(width: 155, height: 44)
-                        .background(.orange)
-                        .foregroundColor(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding()
-                        .font(.title3)
-
                     }
+                    .alert(alertTitle, isPresented: $isAlertPresent, actions: {
+                        Button(questionCounter <= maxQuestions ? "Continue": "Restart Game") {
+                            questionCounter <= maxQuestions ? setupQuestion() : stopGame()
+                        }
+                    }, message: {
+                        Text(alertMessage)
+                    })
                 }
                 
                 Spacer()
                 Spacer()
             }
             .navigationTitle("Fun Game")
-            .alert(alertTitle, isPresented: $isAlertPresent, actions: {
-                Button("Continue") {
-                    setupQuestion()
-                }
-            })
             .toolbar {
                 ToolbarItem {
                     if isGameOn {
@@ -132,19 +138,23 @@ struct ContentView: View {
 
     }
     
+    func askToRestartGame() {
+        alertTitle = "Game Finished!"
+        alertMessage = "Do you want to restart game?"
+        
+        isAlertPresent = true
+    }
+    
     func calculate() {
         isKeyboardFocused = false
+        isAlertPresent = true
         
-        if questionCounter == numberOfQuestions {
-            alertTitle = "Game Finished!"
-            alertMessage = "Do you want to restart game?"
-            return
-        }
+        questionCounter += 1
         
         if answer == correctAnswer {
             score += 1
             alertTitle = "Correct Answer!"
-            alertMessage = "Do you want to answer next question?"
+            alertMessage = "Keep going on!!!"
             
         } else {
             if score != 0 { score -= 1 }
@@ -152,7 +162,6 @@ struct ContentView: View {
             alertMessage = "Failure is key for success, try again 🙂"
         }
         
-        isAlertPresent = true
     }
     
     func startGame() {
@@ -162,9 +171,9 @@ struct ContentView: View {
     
     func stopGame() {
         table = 2
-        numberOfQuestions = 5
+        maxQuestions = 5
         questionCounter = 0
-        randomNumber = Int.random(in: 1...10)
+        isGameOn = false
     }
     
     func setupQuestion() {
