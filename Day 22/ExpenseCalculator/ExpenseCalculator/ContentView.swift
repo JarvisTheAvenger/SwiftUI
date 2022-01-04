@@ -7,6 +7,30 @@
 
 import SwiftUI
 
+struct RowView: View {
+    var item: ExpenseItem
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(item.name)
+                    .font(.headline)
+                Text(item.type)
+            }
+
+            Spacer()
+            Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                .foregroundStyle(
+                    item.amount > 10 ? .linearGradient( colors: [.yellow, .red], startPoint: .top, endPoint: .bottom) : .linearGradient(
+                        colors: [.black],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+        }
+    }
+}
+
 struct ContentView: View {
     @StateObject var expenses = Expenses()
     @State var isShowingAddExpenseView = false
@@ -14,26 +38,23 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(expenses.items, id: \.id) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
+                Section("Personal") {
+                    ForEach(expenses.items, id: \.id) { item in
+                        if item.type.lowercased() == "personal" {
+                            RowView(item: item)
                         }
-
-                        Spacer()
-                        Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
-                            .foregroundStyle(
-                                item.amount > 10 ? .linearGradient( colors: [.yellow, .red], startPoint: .top, endPoint: .bottom) : .linearGradient(
-                                    colors: [.black],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
                     }
+                    .onDelete(perform: removeItems)
                 }
-                .onDelete(perform: removeItems)
+                
+                Section("Business") {
+                    ForEach(expenses.items, id: \.id) { item in
+                        if item.type.lowercased() == "business" {
+                            RowView(item: item)
+                        }
+                    }
+                    .onDelete(perform: removeItems)
+                }
             }
             .navigationTitle("iExpense")
             .toolbar {
