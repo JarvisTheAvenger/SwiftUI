@@ -24,6 +24,13 @@ struct ContentView: View {
 
                         Spacer()
                         Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                            .foregroundStyle(
+                                item.amount > 10 ? .linearGradient( colors: [.yellow, .red], startPoint: .top, endPoint: .bottom) : .linearGradient(
+                                    colors: [.black],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
+                            )
                     }
                 }
                 .onDelete(perform: removeItems)
