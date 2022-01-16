@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CheckoutView: View {
     @ObservedObject var order: Order
+    
+    @State private var title = ""
     @State private var confirmationMessage = ""
     @State private var showingConfirmation = false
     
@@ -34,7 +36,7 @@ struct CheckoutView: View {
                 }
                 .padding()
             }
-            .alert("Thank you!", isPresented: $showingConfirmation) {
+            .alert(title, isPresented: $showingConfirmation) {
                 Button("OK") { }
             } message: {
                 Text(confirmationMessage)
@@ -61,10 +63,13 @@ struct CheckoutView: View {
             
             let decodedOrder = try JSONDecoder().decode(Order.self, from: data)
             confirmationMessage = "Your order for \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
+            title = "Thank you!"
             showingConfirmation = true
             
         } catch {
-            print("Checkout failed.")
+            title = "Order Failed 😞"
+            confirmationMessage = "Sorry! placing your order failed!"
+            showingConfirmation = true
         }
         
     }
