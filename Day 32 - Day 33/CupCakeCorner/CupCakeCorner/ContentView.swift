@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationView {
             Form {
                 Section {
-                    Picker("Select your cake types", selection: $order.selectedtype) {
+                    Picker("Select your cake types", selection: $order.type) {
                         ForEach(Order.types.indices) {
                             Text(Order.types[$0])
                         }
