@@ -8,6 +8,15 @@
 import SwiftUI
 import CoreData
 
+extension Book {
+    var formattedDateString: String {
+        let date = self.date ?? Date.now
+        let formatter =  DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
+    }
+}
+
 struct DetailView: View {
     let book: Book
     
@@ -18,8 +27,28 @@ struct DetailView: View {
     var body: some View {
         ScrollView {
             
+            
+            ZStack(alignment: .bottomTrailing) {
+                Image(book.genre ?? "Fantasy")
+                    .resizable()
+                    .scaledToFit()
+
+                Text(book.genre?.uppercased() ?? "FANTASY")
+                    .font(.caption)
+                    .fontWeight(.black)
+                    .padding(8)
+                    .foregroundColor(.white)
+                    .background(.black.opacity(0.75))
+                    .clipShape(Capsule())
+                    .offset(x: -5, y: -5)
+            }
+            
             Text(book.author ?? "Unknown author")
                 .font(.title)
+                .foregroundColor(.secondary)
+            
+            Text(book.formattedDateString)
+                .font(.subheadline)
                 .foregroundColor(.secondary)
 
             Text(book.review ?? "No review")
@@ -27,7 +56,6 @@ struct DetailView: View {
 
             RatingView(rating: .constant(Int(book.rating)))
                 .font(.largeTitle)
-
         }
         .alert("Delete book", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive, action: deleteBook)
@@ -48,9 +76,7 @@ struct DetailView: View {
     
     func deleteBook() {
         moc.delete(book)
-
-        // uncomment this line if you want to make the deletion permanent
-        // try? moc.save()
+        try? moc.save()
         dismiss()
     }
 }
