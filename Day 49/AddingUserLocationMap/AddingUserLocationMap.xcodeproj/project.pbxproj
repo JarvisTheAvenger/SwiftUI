@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7C1FCB627ACDFA200525721 /* Wiki.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C1FCB527ACDFA200525721 /* Wiki.swift */; };
+		B7C1FCB827ACE3E000525721 /* FIleManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C1FCB727ACE3E000525721 /* FIleManager+Extension.swift */; };
+		B7C1FCBA27ACE5F900525721 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C1FCB927ACE5F900525721 /* MapView.swift */; };
 		B7DFF3B927AB89B900CABAEA /* AddingUserLocationMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFF3B827AB89B900CABAEA /* AddingUserLocationMapApp.swift */; };
 		B7DFF3BB27AB89B900CABAEA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFF3BA27AB89B900CABAEA /* ContentView.swift */; };
 		B7DFF3BD27AB89BA00CABAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7DFF3BC27AB89BA00CABAEA /* Assets.xcassets */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B7C1FCB527ACDFA200525721 /* Wiki.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wiki.swift; sourceTree = "<group>"; };
+		B7C1FCB727ACE3E000525721 /* FIleManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FIleManager+Extension.swift"; sourceTree = "<group>"; };
+		B7C1FCB927ACE5F900525721 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		B7DFF3B527AB89B900CABAEA /* AddingUserLocationMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddingUserLocationMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7DFF3B827AB89B900CABAEA /* AddingUserLocationMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingUserLocationMapApp.swift; sourceTree = "<group>"; };
 		B7DFF3BA27AB89B900CABAEA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,8 +63,11 @@
 			children = (
 				B7DFF3B827AB89B900CABAEA /* AddingUserLocationMapApp.swift */,
 				B7DFF3BA27AB89B900CABAEA /* ContentView.swift */,
+				B7C1FCB927ACE5F900525721 /* MapView.swift */,
 				B7DFF3C827AB8E9B00CABAEA /* EditView.swift */,
 				B7DFF3C627AB8CD800CABAEA /* Location.swift */,
+				B7C1FCB527ACDFA200525721 /* Wiki.swift */,
+				B7C1FCB727ACE3E000525721 /* FIleManager+Extension.swift */,
 				B7DFF3BC27AB89BA00CABAEA /* Assets.xcassets */,
 				B7DFF3BE27AB89BB00CABAEA /* Preview Content */,
 			);
@@ -143,7 +152,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7C1FCBA27ACE5F900525721 /* MapView.swift in Sources */,
 				B7DFF3BB27AB89B900CABAEA /* ContentView.swift in Sources */,
+				B7C1FCB827ACE3E000525721 /* FIleManager+Extension.swift in Sources */,
+				B7C1FCB627ACDFA200525721 /* Wiki.swift in Sources */,
 				B7DFF3C727AB8CD800CABAEA /* Location.swift in Sources */,
 				B7DFF3C927AB8E9B00CABAEA /* EditView.swift in Sources */,
 				B7DFF3B927AB89B900CABAEA /* AddingUserLocationMapApp.swift in Sources */,
